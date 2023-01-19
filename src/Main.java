@@ -1,35 +1,21 @@
-import java.util.Arrays;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
 
 //        int[] donnees = genererDonneesEntreBornes(50, 0, 20);
-
-        int[] donnees = genererDonnees(200000);
+        int[] donnees = genererDonnees(500);
 //        System.out.println(Arrays.toString(donnees));
 
         long tempsDebut = System.nanoTime();
 
-        triBullesSalah(donnees);
-//        Arrays.sort(donnees); // trie le tableau en utilisant un algorithme de type Quicksort
+        triBulles(donnees);
+        affichageArray(donnees);
+
 
         long tempsFin = System.nanoTime();
-
         System.out.println("Temps de calcul en millisecondes: " + ((tempsFin - tempsDebut) / 1000000) );
-
-
-        // Tableau aléatoire
-
-
-        // Question préliminaire
-
-
-        // Question 1
-
-
-        // Question 2
-        triBulles(donnees);
     }
 
     /*
@@ -55,14 +41,34 @@ public class Main {
         return t;
     }
 
+    public static boolean isSorted(int[] tab) {
+        for(int i = 0; i < tab.length - 1; i++) {
+            if (tab[i] > tab[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void affichageArray(int[] tab) {
         for (int element : tab) {
             System.out.print(element + "\n");
         }
     }
 
-    public static void triSelection(int[] tab) {
-
+    /*
+        Temps : 3585ms
+     */
+    public static void triInsertion(int[] tab) {
+        for(int i = 1; i < tab.length; i++) {
+            int j = i - 1;
+            int val = tab[i];
+            while (j >= 0 && tab[j] > val) {
+                tab[j + 1] = tab[j];
+                j--;
+            }
+            tab[j + 1] = val;
+        }
     }
 
     /*
@@ -73,7 +79,7 @@ public class Main {
 
         for (int i = 0; i < tab.length - 1; i++) {
             for (int j = 0; j < tab.length - i - 1; j++) {
-                if(tab[j+1] < tab[j]) {
+                if(tab[j] > tab[j+1]) {
                     pivot = tab[j];
                     tab[j] = tab[j+1];
                     tab[j+1] = pivot;
@@ -82,7 +88,27 @@ public class Main {
         }
     }
 
+    /*
+        28ms
+     */
     public static void triPeigne(int[] tab) {
+        int gap = tab.length;
+        boolean swap = true;
 
+        while (gap > 1 || swap) {
+            if (gap > 1) {
+                gap = (int) (gap / 1.3);
+            }
+
+            swap = false;
+            for(int i = 0; i + gap < tab.length; i++) {
+                if (tab[i] > tab[i + gap]) {
+                    int pivot = tab[i];
+                    tab[i] = tab[i + gap];
+                    tab[i + gap] = pivot;
+                    swap = true;
+                }
+            }
+        }
     }
 }
