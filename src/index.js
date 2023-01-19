@@ -1,4 +1,4 @@
-let array = genererDonnees(20000);
+let array = genererDonnees(200000);
 
 let startTime = performance.now();
 
