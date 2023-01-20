@@ -10,8 +10,6 @@ public class Main {
 
         long tempsDebut = System.nanoTime();
 
-        triBulles(donnees);
-        affichageArray(donnees);
 
 
         long tempsFin = System.nanoTime();
@@ -110,5 +108,58 @@ public class Main {
                 }
             }
         }
+    }
+//
+//    public static void triComptage(int[] tab){
+//        int plusGrand=tab[0];
+//        int indice = 0;
+//
+//        for (int i=1; i<tab.length; i++){
+//            if (tab[i]>plusGrand){
+//                plusGrand = tab[i];
+//            }
+//        }
+//
+//        int[] output = new int[plusGrand];
+//
+//
+//        for (int i=0; i<output.length; i++){
+//            output[i]=0;
+//        }
+//
+//
+//        for (int i=0; i<tab.length; i++){
+//            output[tab[i]]++;
+//        }
+//
+//        for (int i=0; i<output.length; i++){
+//            for (int j=0; j<output[i]; j++)
+//                tab[indice]=output[i];
+//            indice++;
+//        }
+//
+//        System.out.println(tab);
+//
+//    }
+
+
+
+    public static int[] plusGrands(int[] tab, int n) {
+
+        int[] result = new int[n];
+        int valeurtemporaire, i, j;
+        for (i=0; i< tab.length; i++) {
+            for(j=i; j< tab.length; j++) {
+                if(tab[j]>tab[i]) {
+                    valeurtemporaire = tab[i];
+                    tab[i] = tab[j];
+                    tab[j] = valeurtemporaire;
+                }
+            }
+        }
+        for(int k=0; k < n; k++){
+            result[k] = tab[k];
+        }
+        return result;
     }
 }
